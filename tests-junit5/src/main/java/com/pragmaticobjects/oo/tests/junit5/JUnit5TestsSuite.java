@@ -30,9 +30,8 @@ import org.junit.jupiter.api.TestFactory;
 /**
  * JUnit5 tests suite
  *
- * @return a set of {@link DynamicTest} instances.
+ * @author Kapralov Sergey
  */
-
 public interface JUnit5TestsSuite {
     /**
      * JUnit 5 test factory method
