@@ -56,6 +56,7 @@ public class TestsSuite implements JUnit5TestsSuite {
         this.tests = tests;
     }
 
+    @Override
     @TestFactory
     public final Iterable<DynamicTest> produceTests() {
         return tests.map(t -> DynamicTest.dynamicTest(t.description(), () -> t.execute()));
