@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.pragmaticobjects.oo.tests</groupId>
+        <artifactId>oo-tests</artifactId>
+        <version>0.0.0-SNAPSHOT</version>
+    </parent>
+    <artifactId>tests-junit4</artifactId>
+    <packaging>jar</packaging>
+    
+    <repositories>
+        <repository>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <id>bintray-kim-betti-maven</id>
+            <name>bintray</name>
+            <url>http://dl.bintray.com/kim-betti/maven</url>
+        </repository>
+    </repositories>
+    
+    <dependencies>
+        <dependency>
+            <groupId>com.pragmaticobjects.oo.tests</groupId>
+            <artifactId>tests-core</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+        </dependency>
+        <dependency>
+            <groupId>io.vavr</groupId>
+            <artifactId>vavr</artifactId>
+            <version>0.9.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.kimble</groupId>
+            <artifactId>junit-test-factory</artifactId>
+            <version>4.12.6</version>
+        </dependency>
+    </dependencies>
+    
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.pragmaticobjects.oo.atom</groupId>
+                <artifactId>atom-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>atomize</id>
+                        <goals>
+                            <goal>generate-annotations</goal>
+                            <goal>instrument</goal>
+                            <goal>instrument-tests</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
