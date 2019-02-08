@@ -5,6 +5,11 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+/**
+ * Test case to validate the {@link BehaviorAssertion}
+ *
+ * @author Romain Rochegude
+ */
 public class BehaviorAssertionTest {
     @Test
     public void assertAssertionFailsTest() {
