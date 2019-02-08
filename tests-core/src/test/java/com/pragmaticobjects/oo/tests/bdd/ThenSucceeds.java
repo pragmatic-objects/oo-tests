@@ -1,7 +1,7 @@
 package com.pragmaticobjects.oo.tests.bdd;
 
-public final class ThenSucceeds implements Step.Then<Void> {
+public class ThenSucceeds implements Step.Then<Void> {
     @Override
-    public void check(final Void result) {
+    public final void check(final Void result) {
     }
 }
