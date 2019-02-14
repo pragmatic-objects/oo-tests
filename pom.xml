@@ -53,6 +53,15 @@
         <module>tests-junit4</module>
     </modules>
 
+    <dependencies>
+        <dependency> <!-- WA -->
+            <groupId>com.pragmaticobjects.oo.atom</groupId>
+            <artifactId>atom-basis</artifactId>
+            <version>0.0.15</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
     <build>
         <plugins>
             <plugin>
