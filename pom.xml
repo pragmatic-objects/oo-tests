@@ -4,13 +4,19 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <parent>
+        <groupId>com.pragmaticobjects.oo.base</groupId>
+        <artifactId>base-parent-equivalence</artifactId>
+        <version>0.0.2</version>
+    </parent>
+
     <groupId>com.pragmaticobjects.oo.tests</groupId>
     <artifactId>oo-tests</artifactId>
     <version>0.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <name>OO-tests</name>
-    <description>Reusable test assertions for OO-atom</description>
+    <name>OO-Tests</name>
+    <description>Reusable test assertions</description>
     <url>https://github.com/pragmatic-objects/oo-tests</url>
     <scm>
         <url>https://github.com/pragmatic-objects/oo-tests.git</url>
@@ -53,174 +59,51 @@
         <module>tests-junit4</module>
     </modules>
 
-    <dependencies>
-        <dependency> <!-- WA -->
-            <groupId>com.pragmaticobjects.oo.atom</groupId>
-            <artifactId>atom-basis</artifactId>
-            <version>0.0.15</version>
-            <scope>provided</scope>
-        </dependency>
-    </dependencies>
-
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.pragmaticobjects.oo.tests</groupId>
+                <artifactId>tests-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>4.12</version>
+            </dependency>
+            <dependency>
+                <groupId>io.vavr</groupId>
+                <artifactId>vavr</artifactId>
+                <version>0.9.0</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.kimble</groupId>
+                <artifactId>junit-test-factory</artifactId>
+                <version>4.12.6</version>
+            </dependency>
+            <dependency>
+                <groupId>org.assertj</groupId>
+                <artifactId>assertj-core</artifactId>
+                <version>3.11.1</version>
+            </dependency>
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-engine</artifactId>
+                <version>5.3.2</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+    
     <build>
         <plugins>
             <plugin>
-                <groupId>com.pragmaticobjects.oo.atom</groupId>
-                <artifactId>atom-maven-plugin</artifactId>
-                <version>0.0.15</version>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>license-maven-plugin</artifactId>
+                <configuration>
+                    <skipAddThirdParty>true</skipAddThirdParty>
+                    <skipAggregateAddThirdParty>true</skipAggregateAddThirdParty>
+                </configuration>
             </plugin>
         </plugins>
     </build>
-
-    <profiles>
-        <profile>
-            <id>extras</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-source-plugin</artifactId>
-                        <version>3.0.1</version>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>jar</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-javadoc-plugin</artifactId>
-                        <version>3.0.1</version>
-                        <executions>
-                            <execution>
-                                <id>attach-javadoc</id>
-                                <goals>
-                                    <goal>jar</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                        <configuration>
-                            <tags>
-                                <tag>
-                                    <name>todo</name>
-                                    <placement>a</placement>
-                                    <head>To Do:</head>
-                                </tag>
-                            </tags>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>coverage</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.jacoco</groupId>
-                        <artifactId>jacoco-maven-plugin</artifactId>
-                        <version>0.8.3</version>
-                        <configuration>
-                            <skip>${skipTests}</skip>
-                            <destFile>${basedir}/target/coverage-reports/jacoco-unit.exec</destFile>
-                            <dataFile>${basedir}/target/coverage-reports/jacoco-unit.exec</dataFile>
-                            <excludes>
-                                <!--
-                                 A hack which prevents JaCoCo instrumentation of some classes in tests,
-                                 since fields and methods, added by JaCoCo, impact tests semantics
-                                 -->
-                                <exclude>com.pragmaticobjects.oo.atom.codegen.bytebuddy.matchers.**Test$**</exclude>
-                            </excludes>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <id>prepare-agent</id>
-                                <phase>initialize</phase>
-                                <goals>
-                                    <goal>prepare-agent</goal>
-                                </goals>
-                            </execution>
-                            <execution>
-                                <id>report</id>
-                                <phase>test</phase>
-                                <goals>
-                                    <goal>report</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>checkstyle</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-checkstyle-plugin</artifactId>
-                        <version>3.0.0</version>
-                        <inherited>true</inherited>
-                        <executions>
-                            <execution>
-                                <configuration>
-                                    <sourceDirectories>
-                                        <sourceDirectory>src/main/java</sourceDirectory>
-                                    </sourceDirectories>
-                                    <logViolationsToConsole>true</logViolationsToConsole>
-                                    <configLocation>checkstyle.xml</configLocation>
-                                    <encoding>UTF-8</encoding>
-                                    <failsOnError>true</failsOnError>
-                                    <failOnViolation>true</failOnViolation>
-                                    <consoleOutput>true</consoleOutput>
-                                </configuration>
-                                <goals>
-                                    <goal>check</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                        <dependencies>
-                            <dependency>
-                                <groupId>com.puppycrawl.tools</groupId>
-                                <artifactId>checkstyle</artifactId>
-                                <version>8.16</version>
-                            </dependency>
-                        </dependencies>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>ossrh</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-gpg-plugin</artifactId>
-                        <version>1.6</version>
-                        <executions>
-                            <execution>
-                                <id>sign-artifacts</id>
-                                <phase>verify</phase>
-                                <goals>
-                                    <goal>sign</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
 </project>

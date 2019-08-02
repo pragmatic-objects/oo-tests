@@ -16,36 +16,14 @@
         <dependency>
             <groupId>com.pragmaticobjects.oo.tests</groupId>
             <artifactId>tests-core</artifactId>
-            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>io.vavr</groupId>
             <artifactId>vavr</artifactId>
-            <version>0.10.0</version>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
-            <version>5.3.2</version>
         </dependency>
     </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>com.pragmaticobjects.oo.atom</groupId>
-                <artifactId>atom-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>atomize</id>
-                        <goals>
-                            <goal>generate-annotations</goal>
-                            <goal>instrument</goal>
-                            <goal>instrument-tests</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
 </project>
