@@ -25,8 +25,6 @@
  */
 package com.pragmaticobjects.oo.tests;
 
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-
 /**
  * Assertion which passes when the assertion under the test fails with
  * {@link AssertionError}
@@ -46,6 +44,14 @@ public class AssertAssertionFails implements Assertion {
 
     @Override
     public final void check() throws Exception {
-        assertThatThrownBy(() -> assertion.check()).isInstanceOf(AssertionError.class);
+        try {
+            assertion.check();
+        } catch(AssertionError ex) {
+            // Expected
+            return;
+        }
+        throw new AssertionError(
+            String.format("Assertion is expected to fail --- %s", assertion)
+        );
     }
 }

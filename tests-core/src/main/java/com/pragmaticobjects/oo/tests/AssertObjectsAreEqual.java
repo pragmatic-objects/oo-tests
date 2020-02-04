@@ -25,7 +25,7 @@
  */
 package com.pragmaticobjects.oo.tests;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import java.util.Objects;
 
 /**
  * Passes if two objects are equal.
@@ -33,8 +33,8 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Kapralov Sergey
  */
 public class AssertObjectsAreEqual implements Assertion {
-    private final Object atom1;
-    private final Object atom2;
+    private final Object o1;
+    private final Object o2;
 
     /**
      * Ctor.
@@ -42,13 +42,31 @@ public class AssertObjectsAreEqual implements Assertion {
      * @param o2 Object to compare
      */
     public AssertObjectsAreEqual(Object o1, Object o2) {
-        this.atom1 = o1;
-        this.atom2 = o2;
+        this.o1 = o1;
+        this.o2 = o2;
     }
 
     @Override
     public final void check() throws Exception {
-        assertThat(atom1).isEqualTo(atom2);
-        assertThat(atom1.hashCode()).isEqualTo(atom2.hashCode());
+        if(!Objects.equals(o1, o2)) {
+            throw new AssertionError(
+                String.join(
+                    "\r\n",
+                    "Expected objects to be equal:",
+                    "obj1 = " + o1,
+                    "obj2 = " + o2
+                )
+            );
+        }
+        if(!Objects.equals(o1.hashCode(), o2.hashCode())) {
+            throw new AssertionError(
+                String.join(
+                    "\r\n",
+                    "Expected objects to be equal:",
+                    String.format("obj1 = (%s) %s", o1.hashCode(), o1),
+                    String.format("obj2 = (%s) %s", o2.hashCode(), o2)
+                )
+            );
+        }
     }
 }
