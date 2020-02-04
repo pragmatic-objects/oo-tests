@@ -25,8 +25,6 @@
  */
 package com.pragmaticobjects.oo.tests;
 
-import static org.assertj.core.api.Assertions.fail;
-
 /**
  * Assertion that does nothing and always fails
  * 
@@ -35,6 +33,6 @@ import static org.assertj.core.api.Assertions.fail;
 public class AssertFail implements Assertion {
     @Override
     public final void check() throws Exception {
-        fail("FAIL, just as planned");
+        throw new AssertionError("FAIL, just as planned");
     }
 }

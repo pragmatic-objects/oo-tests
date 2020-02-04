@@ -25,8 +25,6 @@
  */
 package com.pragmaticobjects.oo.tests;
 
-import static org.assertj.core.api.Assertions.assertThatCode;
-
 /**
  * Assertion which passes when the assertion under the test succeeds
  * 
@@ -45,6 +43,13 @@ public class AssertAssertionPasses implements Assertion {
 
     @Override
     public final void check() throws Exception {
-        assertThatCode(() -> assertion.check()).doesNotThrowAnyException();
+        try {
+            assertion.check();
+        } catch(Throwable ex) {
+            throw new AssertionError(
+                String.format("Unexpected faiure in assertion %s", assertion),
+                ex
+            );
+        }
     }
 }
